@@ -5,9 +5,12 @@ import cors from "cors"
 dotenv.config()
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 let port = process.env.PORT || 6000
 let app=express()
+
+
 //middleware
 app.use(express.json())
 app.use(cookieParser())
@@ -18,6 +21,10 @@ app.use(cors({
 
 //routes
 app.use("/api/auth",authRoutes)
+app.use("/api/auth",userRoutes)
+
+
+
 app.get('/',(req,res)=>{
      res.send("hello,world")
 })

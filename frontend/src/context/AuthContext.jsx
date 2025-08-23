@@ -8,6 +8,16 @@ function AuthContext({children}) {
           serverUrl
 
      }
+     const getCurrentUser = async () => {
+          try {
+               
+          } catch (error) {
+               
+          }
+          
+     }
+
+
   return (
     <div>
      <authDataContext.Provider value={value}>
