@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import Logo from "../assets/vcart logo.png";
+import google from '../assets/google.png'
 import { useNavigate } from "react-router-dom";
 import { IoEyeOutline, IoEyeSharp } from "react-icons/io5";
 import { authDataContext } from "../context/authContext";
 import axios from "axios";
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../utils/Firebase';
 
 function Login() {
   const navigate = useNavigate();
@@ -28,6 +31,26 @@ function Login() {
         
       }
     }
+    //google login
+    const googlelogin = async () => {
+        try {
+    
+          const response = await signInWithPopup(auth,provider)
+         let user = response.user;
+         let name = user.displayName;
+         let email = user.email;
+         const result = await axios.post(serverUrl + "/api/auth/googlelogin",{name,email},{withCredentials:true})
+         console.log(result.data);
+         
+          
+          
+        } catch (error) {
+          console.log(error);
+          
+          
+        }
+      }
+      
 
   return (
     <div className="w-[100vw] h-[100vh] bg-gradient-to-r from-[#0f172a] to-[#1e293b] text-white flex flex-col items-center justify-center">
@@ -41,6 +64,7 @@ function Login() {
           SparkCart
         </h1>
       </div>
+     
 
       {/* Login Box */}
       <div className="max-w-[400px] w-[90%] mt-8 bg-[#ffffff0f] border border-[#ffffff2f] backdrop-blur-md rounded-2xl shadow-lg p-8 flex flex-col items-center">
@@ -48,6 +72,17 @@ function Login() {
         <p className="text-sm text-gray-300 mb-6">
           Welcome back! Please login to your account.
         </p>
+         {/* Google Login */}
+        <div className="w-full h-[50px] border border-gray-400 rounded-lg flex items-center justify-center gap-3 cursor-pointer hover:bg-[#ffffff15] transition " onClick={googlelogin}>
+          <img src={google} alt="Google" className="w-[22px]" />
+          <span className="text-sm">Login with Google</span>
+        </div>
+        {/* Divider */}
+          <div className='w-[100%] h-[50px] flex items-center justify-center gap-[10px]'>
+            <div className='w-[40%] h-[1px] bg-[#444]'></div>
+            <span className='text-gray-400'>OR</span>
+            <div className='w-[40%] h-[1px] bg-[#444]'></div>
+          </div>
 
         {/* Form */}
         <form onSubmit={handleLogin} className="w-full flex flex-col gap-5">

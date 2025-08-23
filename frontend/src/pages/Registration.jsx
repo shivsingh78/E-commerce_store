@@ -6,6 +6,8 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeSharp } from "react-icons/io5";
 import { authDataContext } from '../context/authContext';
 import axios from 'axios'
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../utils/Firebase';
 
 function Registration() {
   let [show,setShow]=useState(false)
@@ -33,6 +35,26 @@ function Registration() {
       
     }
   }
+
+  const googleSignup = async () => {
+    try {
+
+      const response = await signInWithPopup(auth,provider)
+     let user = response.user;
+     let name = user.displayName;
+     let email = user.email;
+     const result = await axios.post(serverUrl + "/api/auth/googlelogin",{name,email},{withCredentials:true})
+     console.log(result.data);
+     
+      
+      
+    } catch (error) {
+      console.log(error);
+      
+      
+    }
+  }
+  
   return (
     <div className='w-[100vw] h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] text-white flex flex-col items-center justify-start'>
       
@@ -56,7 +78,7 @@ function Registration() {
         <form action=""  onSubmit={handleSignup} className='w-[90%] h-[90%] flex flex-col items-center'>
           
           {/* Google button */}
-          <div className='w-[90%] h-[50px] bg-[#2d2d2d] hover:bg-[#3a3a3a] transition rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer font-medium'>
+          <div className='w-[90%] h-[50px] bg-[#2d2d2d] hover:bg-[#3a3a3a] transition rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer font-medium' onClick={googleSignup}>
             <img src={google} alt="google" className='w-[20px]' /> Registration with Google
           </div>
           
