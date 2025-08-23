@@ -1,30 +1,16 @@
-import React  from 'react'
-import { createContext } from 'react'
-export const authDataContext = createContext()
+import React, { createContext } from "react";
 
-function AuthContext({children}) {
-     let serverUrl = "http://localhost:8000"
-     let value ={
-          serverUrl
+// ✅ must be lowercase 'a' if you import it as { authDataContext }
+export const authDataContext = createContext();
 
-     }
-     const getCurrentUser = async () => {
-          try {
-               
-          } catch (error) {
-               
-          }
-          
-     }
-
+function AuthContext({ children }) {
+  const serverUrl = "http://localhost:8000";
 
   return (
-    <div>
-     <authDataContext.Provider value={value}>
-          {children}
-     </authDataContext.Provider>
-    </div>
-  )
+    <authDataContext.Provider value={{ serverUrl }}>
+      {children}
+    </authDataContext.Provider>
+  );
 }
 
-export default AuthContext
+export default AuthContext;
