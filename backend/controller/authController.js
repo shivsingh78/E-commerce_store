@@ -80,7 +80,7 @@ export const login = async (req,res) => {
                maxAge: 7 * 24 *60 *60 *1000
 
           })
-          return res.status(201).json({message: "Login successfully"})
+          return res.status(201).json(user)
 
      } catch (error) {
           console.error("Login error:", error);
@@ -97,5 +97,5 @@ export const logout = async (req,res) => {
           return res.status(500).json({message:"logout error " + {error}})
           
           
-     }
+     } 
 }

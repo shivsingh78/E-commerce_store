@@ -1,11 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../assets/vcart logo.png";
 import { useNavigate } from "react-router-dom";
 import { IoEyeOutline, IoEyeSharp } from "react-icons/io5";
+import { authDataContext } from "../context/authContext";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+   let [email,setEmail]=useState("")
+    let [password,setPassword]=useState("")
+    let {serverUrl} = useContext(authDataContext)
+
+    const handleLogin = async (e) => 
+      {
+        e.preventDefault()
+      try {
+        let result = await axios.post(serverUrl + '/api/auth/login',{
+          email,password
+        },{withCredentials:true})
+        console.log(result.data);
+        
+        
+      } catch (error) {
+        console.log(error);
+        
+        
+      }
+    }
 
   return (
     <div className="w-[100vw] h-[100vh] bg-gradient-to-r from-[#0f172a] to-[#1e293b] text-white flex flex-col items-center justify-center">
@@ -28,12 +50,12 @@ function Login() {
         </p>
 
         {/* Form */}
-        <form className="w-full flex flex-col gap-5">
+        <form onSubmit={handleLogin} className="w-full flex flex-col gap-5">
           <input
             type="text"
             placeholder="Email"
             className="w-full h-[45px] px-4 rounded-lg bg-transparent border border-gray-500 placeholder-gray-300 text-white focus:border-blue-400 outline-none"
-            required
+            required onChange={(e)=>setEmail(e.target.value)} value={email}
           />
 
           {/* Password with eye toggle */}
@@ -42,7 +64,7 @@ function Login() {
               type={show ? "text" : "password"}
               placeholder="Password"
               className="w-full h-[45px] px-4 pr-10 rounded-lg bg-transparent border border-gray-500 placeholder-gray-300 text-white focus:border-blue-400 outline-none"
-              required
+              required onChange={(e)=>setPassword(e.target.value)} value={password}
             />
             {show ? (
               <IoEyeSharp
