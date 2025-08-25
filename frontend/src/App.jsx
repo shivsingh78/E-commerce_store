@@ -8,7 +8,8 @@ import Nav from './component/Nav.jsx'
 function App() {
   return (
     <>
-  <Nav/>
+ 
+      <Nav />
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/login' element={<Login/>} />
