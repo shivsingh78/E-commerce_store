@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
-import Logo from "../assets/vcart logo.png"
+import logo from '../assets/vcart logo.png'
+
 import google from '../assets/google.png'
 import { useNavigate } from 'react-router-dom'
 import { IoEyeOutline } from "react-icons/io5";
@@ -10,6 +11,7 @@ import { authDataContext } from "../context/AuthContext";
 import axios from 'axios'
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
+import { userDataContext } from '../context/UserContext';
 
 function Registration() {
   let [show,setShow]=useState(false)
@@ -17,6 +19,7 @@ function Registration() {
   let [name,setName]=useState("")
     let [email,setEmail]=useState("")
   let [password,setPassword]=useState("")
+  let {usedata,getCurrentUser} = useContext(userDataContext)
 
 
 
@@ -30,6 +33,9 @@ function Registration() {
         name,email,password
       },{withCredentials:true})
       console.log(result.data);
+      getCurrentUser()
+      navigate("/")
+
       
     } catch (error) {
       console.log(error);
@@ -59,24 +65,17 @@ function Registration() {
   
   return (
     <div className='w-[100vw] h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] text-white flex flex-col items-center justify-start'>
+       
       
-      {/* Header with logo */}
-      <div 
-        className='w-[100%] h-[80px] flex items-center justify-start px-[30px] gap-[10px] cursor-pointer bg-gradient-to-r  '
-        onClick={() => navigate("/")} 
-      >
-        <img className='w-[40px]' src={Logo} alt="logo" />
-        <h1 className='text-[22px] font-sans font-semibold'>SparkCart</h1>
-      </div>
-
+      
       {/* Sub header */}
-      <div className='w-[100%] h-[100px] flex items-center justify-center flex-col gap-[10px] '>
-        <span className='text-[25px] font-semibold'>Registration Page</span>
-        <span className='text-[16px] text-gray-300'>Welcome to SparkCart, Place your order</span>
+      <div className='w-[100%] h-[100px] flex items-center justify-center flex-col gap-[10px] mt-[80px] '>
+        <span className='text-[25px] font-semibold '>Registration Page</span>
+        <span className='text-[16px] text-gray-300'>Welcome to E-Store, Place your order</span>
       </div>
 
       {/* Registration box */}
-      <div className="max-w-[600px] w-[90%] h-[500px] bg-[#00000040] border border-[#2d2d2d] backdrop-blur-2xl rounded-xl shadow-lg flex items-center justify-center mt-6">
+      <div className="max-w-[600px] w-[90%] h-[500px] bg-[#00000040] border border-[#2d2d2d] backdrop-blur-2xl rounded-xl shadow-lg flex items-center justify-center mt-6 mb-[20px] ">
         <form action=""  onSubmit={handleSignup} className='w-[90%] h-[90%] flex flex-col items-center'>
           
           {/* Google button */}

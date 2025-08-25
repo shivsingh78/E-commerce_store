@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Logo from "../assets/vcart logo.png";
+
 import google from '../assets/google.png'
 import { useNavigate } from "react-router-dom";
 import { IoEyeOutline, IoEyeSharp } from "react-icons/io5";
@@ -7,6 +7,7 @@ import { authDataContext } from "../context/AuthContext";
 import axios from "axios";
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
+import { userDataContext } from "../context/UserContext";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Login() {
    let [email,setEmail]=useState("")
     let [password,setPassword]=useState("")
     let {serverUrl} = useContext(authDataContext)
+    let {getCurrentUser}= useContext(userDataContext)
 
     const handleLogin = async (e) => 
       {
@@ -23,6 +25,8 @@ function Login() {
           email,password
         },{withCredentials:true})
         console.log(result.data);
+        getCurrentUser()
+        navigate("/")
         
         
       } catch (error) {
@@ -56,18 +60,14 @@ function Login() {
     <div className="w-[100vw] h-[100vh] bg-gradient-to-r from-[#0f172a] to-[#1e293b] text-white flex flex-col items-center justify-center">
       {/* Header */}
       <div
-        className="w-full h-[70px] flex items-center gap-3 px-6 cursor-pointer bg-[#1e293b]/80 shadow-md"
         onClick={() => navigate("/")}
       >
-        <img className="w-[40px]" src={Logo} alt="logo" />
-        <h1 className="text-[22px] font-semibold tracking-wide">
-          SparkCart
-        </h1>
+        
       </div>
      
 
       {/* Login Box */}
-      <div className="max-w-[400px] w-[90%] mt-8 bg-[#ffffff0f] border border-[#ffffff2f] backdrop-blur-md rounded-2xl shadow-lg p-8 flex flex-col items-center">
+      <div className="max-w-[400px] w-[90%]  bg-[#ffffff0f] border border-[#ffffff2f] backdrop-blur-md rounded-2xl shadow-lg p-8 flex flex-col items-center mt-[70px]">
         <h2 className="text-2xl font-bold mb-2">Login</h2>
         <p className="text-sm text-gray-300 mb-6">
           Welcome back! Please login to your account.
