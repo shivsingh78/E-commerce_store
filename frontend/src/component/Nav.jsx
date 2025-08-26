@@ -44,7 +44,7 @@ function Nav() {
       </div>
 
       {/* ================= Menu Section ================= */}
-      <div className="w-[50%] lg:w-[40%] hidden md:flex">
+      <div className="w-[50%] lg:w-[40px] hidden md:flex">
         <ul className="flex items-center justify-center gap-[19px] text-white">
           <li className="text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl">
             HOME
