@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import logo from '../assets/vcart logo.png'
 
 import google from '../assets/google.png'
 import { useNavigate } from 'react-router-dom'
@@ -32,7 +31,11 @@ function Registration() {
       const result = await axios.post(serverUrl + '/api/auth/registration', {
         name,email,password
       },{withCredentials:true})
+      // Auto-login after signup
+    const loginRes = await axios.post(serverUrl + "/api/auth/login", { email, password }, { withCredentials: true });
       console.log(result.data);
+      console.log(loginRes.data);
+      
       getCurrentUser()
       navigate("/")
 
@@ -52,7 +55,11 @@ function Registration() {
      let name = user.displayName;
      let email = user.email;
      const result = await axios.post(serverUrl + "/api/auth/googlelogin",{name,email},{withCredentials:true})
+     // Auto-login after signup
+    const loginRes = await axios.post(serverUrl + "/api/auth/login", { email, password }, { withCredentials: true });
      console.log(result.data);
+   
+     
      getCurrentUser()
       navigate("/")
      

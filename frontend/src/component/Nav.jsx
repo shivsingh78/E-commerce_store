@@ -39,12 +39,15 @@ function Nav() {
     <div className="w-full h-[70px] bg-[#ecfafaec] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black">
       {/* ================= Logo Section ================= */}
       <div className="w-[20%] lg:w-[30%] flex items-center justify-start gap-[10px]">
-        <img src={logo} alt="logo" className="w-[30px]" />
-        <h1 className="text-[25px] text-black font-sans">E-Store</h1>
-      </div>
+  <img src={logo} alt="logo" className="w-[30px]" />
+  <h1 className="text-[25px] text-black font-sans flex flex-nowrap items-center space-x-1">
+    <span>E-</span>
+    <span>Store</span>
+  </h1>
+</div>
 
       {/* ================= Menu Section ================= */}
-      <div className="w-[50%] lg:w-[40px] hidden md:flex">
+      <div className="w-[50%] lg:w-[600px] hidden md:flex">
         <ul className="flex items-center justify-center gap-[19px] text-white">
           <li className="text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl">
             HOME
