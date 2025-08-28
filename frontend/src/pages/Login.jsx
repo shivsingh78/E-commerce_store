@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 
+import logo from '../assets/vcart logo.png'
 import google from '../assets/google.png'
 import { useNavigate } from "react-router-dom";
 import { IoEyeOutline, IoEyeSharp } from "react-icons/io5";
@@ -62,11 +63,19 @@ function Login() {
   return (
     <div className="w-[100vw] h-[100vh] bg-gradient-to-r from-[#0f172a] to-[#1e293b] text-white flex flex-col items-center justify-center">
       {/* Header */}
-      <div
-        onClick={() => navigate("/")}
-      >
-        
-      </div>
+      {/* Header with Logo & Title */}
+<div 
+  onClick={() => navigate("/")}
+  className="flex items-center gap-3 cursor-pointer md:mt-10 lg:mt-4 absolute top-5 left-1/2 -translate-x-1/2"
+>
+  <img 
+    src={logo}   
+    alt="Logo" 
+    className="w-12 h-12"
+  />
+  <h1 className="text-3xl font-bold text-white">E-Store</h1>
+</div>
+
      
 
       {/* Login Box */}
