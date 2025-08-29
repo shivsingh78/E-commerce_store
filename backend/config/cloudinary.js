@@ -22,7 +22,7 @@ const uploadOnCloudinary = async (filePath) => {
      fs.unlinkSync(filePath)
      console.log(error);
      
-     
+      
     }
      
 }

@@ -6,6 +6,7 @@ dotenv.config()
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 
 let port = process.env.PORT || 6000
 let app=express()
@@ -22,12 +23,11 @@ app.use(cors({
 //routes
 app.use("/api/auth",authRoutes)
 app.use("/api/auth",userRoutes)
+app.use("/api/product",productRoutes)
 
 
 
-app.get('/',(req,res)=>{
-     res.send("hello,world")
-})
+
 app.listen(port,()=>{
      console.log("hello from backend");
      connectDb()
