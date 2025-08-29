@@ -19,8 +19,10 @@ const uploadOnCloudinary = async (filePath) => {
        fs.unlinkSync(filePath)
        return uploadResult.secure_url
     } catch (error) {
-     fs.unlinkSync(filePath)
-     console.log(error);
+     fs.unlink(filePath, (err) => {
+  if (err) console.error("Failed to delete temp file:", err);
+});
+
      
       
     }

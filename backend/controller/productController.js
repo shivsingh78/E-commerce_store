@@ -16,6 +16,9 @@ export const addProduct = async (req,res) =>
     if (!req.files || !req.files.image1) {
       return res.status(400).json({ message: "At least 1 image is required" });
     }
+    console.log("REQ BODY:", req.body);
+console.log("REQ FILES:", req.files);
+
            
            let image1 = await uploadOnCloudinary(req.files.image1[0].path)
            let image2 = await uploadOnCloudinary(req.files.image2[0].path)
@@ -43,9 +46,8 @@ export const addProduct = async (req,res) =>
            return res.status(201).json(product)
           
          } catch (error) {
-          console.log("AddProduct error");
-          return res.status(500).json({message:`AddProduct error ${error}`})
-          
+          console.error("AddProduct error:", error); // <-- log full error
+  return res.status(500).json({ message: `AddProduct error: ${error.message}` });
           
          }
           
