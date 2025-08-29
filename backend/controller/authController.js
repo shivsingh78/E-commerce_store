@@ -142,10 +142,11 @@ export const adminLogin = async (req, res) => {
                let token = await genToken1(email)
                res.cookie("token", token, {
                     httpOnly: true,
-                    secure: true,
+                    secure: false,
                     sameSite: "Strict",
                     maxAge: 1 * 24 * 60 * 60 * 1000
                })
+                console.log("login attempt:", email, password);
                return res.status(200).json(token)
           }
           return res.status(400).json({ message: "Invalid creadintials" })

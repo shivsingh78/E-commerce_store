@@ -1,14 +1,36 @@
 import React, { useState } from "react";
 import { IoEyeOutline, IoEyeSharp } from "react-icons/io5";
 import logo from '../assets/vcart logo.png'
+import axios from 'axios'
+import { useContext } from "react";
+import { authDataContext } from "../context/AuthContext";
+import { adminDataContext } from "../context/AdminContext";
+import {useNavigate} from 'react-router-dom'
+
 
 function Login() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  let {serverUrl} = useContext(authDataContext)
+  let {adminData , getAdmin} = useContext(adminDataContext)
+  let navigate = useNavigate()
 
   const AdminLogin = async (e) => {
     e.preventDefault();
+    try {
+      const result = await axios.post(serverUrl + "/api/auth/adminLogin",{email, password}, {withCredentials:true})
+     
+      console.log(result.data);
+      getAdmin()
+      navigate("/")
+      
+      
+    } catch (error) {
+      console.log(error);
+      
+      
+    }
   };
 
   return (
@@ -27,7 +49,7 @@ function Login() {
 
       {/* Login Box */}
       <div className="max-w-[400px] w-[90%] bg-[#ffffff0f] border border-[#ffffff2f] backdrop-blur-md rounded-2xl shadow-lg p-8 flex flex-col items-center mt-[70px]">
-        <h2 className="text-2xl font-bold mb-2">Login</h2>
+        <h2 className="text-2xl font-bold mb-2" onClick={AdminLogin}>Login</h2>
         <p className="text-sm text-gray-300 mb-6">
           Welcome to E-Store, Apply to Admin Login
         </p>
