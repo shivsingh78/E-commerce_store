@@ -5,14 +5,19 @@ import Add from './pages/Add'
 import Lists from './pages/Lists'
 import Login from './pages/Login'
 import Orders from './pages/Orders'
+import { useContext } from 'react';
+import { adminDataContext } from './context/AdminContext';
 
 
 
 function App() {
+  let {adminData} = useContext(adminDataContext)
   
   return (
     <>
-     <Routes>
+     {
+      !adminData ? <Login/> : <>
+      <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/add' element={<Add/>} />
       <Route path='/lists' element={<Lists/>} />
@@ -20,6 +25,8 @@ function App() {
       <Route path='/orders' element={<Orders/>} />
 
      </Routes>
+     </>
+     }
     </>
   )
 }
