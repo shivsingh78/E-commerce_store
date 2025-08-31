@@ -1,38 +1,42 @@
-import React, { createContext, useCallback, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import axios from 'axios'
 import { authDataContext } from './AuthContext'
+
 export const shopDataContext = createContext()
-function ShopContext({children}) {
-     let [products,setProducts] =useState()
-     let {serverUrl} = useContext(authDataContext);
-     let currency = '₹'
-     let delivery_fee = 40;
 
-     const getProducts = async () => {
-          try {
-               let result = await axios.get(serverUrl + "/api/product/list")
-               console.log(result.data);
-               setProducts(result.data)
-               
-          } catch (error) {
-               console.log(error);
-               
-               
-          }
-          
-     }
-     useCallback(()=>{
-          getProducts()
-     },[])
-     let value = {
-          products, currency, delivery_fee, getProducts
+function ShopContext({ children }) {
+  const [products, setProducts] = useState([])   // ✅ default empty array
+  const { serverUrl } = useContext(authDataContext)
 
-     }
+  const currency = '₹'
+  const delivery_fee = 40
+
+  const getProducts = async () => {
+    try {
+      const result = await axios.get(serverUrl + "/api/product/list")
+      console.log("Fetched products:", result.data)
+      setProducts(result.data)
+    } catch (error) {
+      console.error("Error fetching products:", error)
+    }
+  }
+
+  // ✅ Run on mount
+  useEffect(() => {
+    getProducts()
+  }, [serverUrl])
+
+  const value = {
+    products,
+    currency,
+    delivery_fee,
+    getProducts
+  }
+
   return (
-    <div>
-     <shopDataContext.Provider value={value}>
-          {children}
-     </shopDataContext.Provider>
-    </div>
+    <shopDataContext.Provider value={value}>
+      {children}
+    </shopDataContext.Provider>
   )
 }
 
