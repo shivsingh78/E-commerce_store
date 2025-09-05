@@ -3,6 +3,9 @@ import Hero from '../component/Hero.jsx'
 
 import Background from '../component/Background'
 import Product from './Product.jsx'
+import OurPolicy from '../component/OurPolicy.jsx'
+import NewLetterBox from '../component/NewLetterBox.jsx'
+import Footer from '../component/Footer.jsx'
 
 function  Home() {
   let heroData=[
@@ -31,6 +34,9 @@ function  Home() {
       />
     </div>
     <Product/>
+    <OurPolicy/>
+    <NewLetterBox/>
+    <Footer/>
     </div>
   )
 }
