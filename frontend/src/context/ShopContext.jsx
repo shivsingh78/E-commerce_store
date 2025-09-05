@@ -6,6 +6,8 @@ export const shopDataContext = createContext()
 
 function ShopContext({ children }) {
   const [products, setProducts] = useState([])   // ✅ default empty array
+  const [search,setSearch] = useState('')
+  const [showSearch,setShowSearch] =useState(false)
   const { serverUrl } = useContext(authDataContext)
 
   const currency = '₹'
@@ -30,7 +32,11 @@ function ShopContext({ children }) {
     products,
     currency,
     delivery_fee,
-    getProducts
+    getProducts,
+    search,
+    setSearch,
+    showSearch,
+    setShowSearch
   }
 
   return (

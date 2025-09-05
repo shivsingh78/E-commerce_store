@@ -10,6 +10,7 @@ import { userDataContext } from "../context/UserContext";
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { authDataContext } from "../context/AuthContext";
+import { shopDataContext } from '../context/ShopContext'
 
 function Nav() {
   // Context: user data (from your UserContext)
@@ -17,7 +18,7 @@ function Nav() {
   const {serverUrl} = useContext(authDataContext)
 
   // Local states
-  const [showSearch, setShowSearch] = useState(false);
+  const {showSearch, setShowSearch,search,setSearch} = useContext(shopDataContext)
   const [showProfile, setShowProfile] = useState(false);
   let navigate = useNavigate()
   const handleLogout = async () =>{
@@ -70,7 +71,7 @@ function Nav() {
         {!showSearch && (
           <IoSearchCircleOutline
             className="w-[38px] h-[38px] text-black cursor-pointer"
-            onClick={() => setShowSearch((prev) => !prev)}
+            onClick={() => {setShowSearch((prev) => !prev); navigate("/collection")}}
           />
         )}
         {showSearch && (
@@ -108,7 +109,7 @@ function Nav() {
           <input
             type="text"
             className="lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-white text-[18px]"
-            placeholder="Search here"
+            placeholder="Search here" onChange={(e)=>{setSearch(e.target.value)}} value={search}
           />
         </div>
       )}
