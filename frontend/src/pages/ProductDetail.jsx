@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom'
 import {shopDataContext} from '../context/ShopContext'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalfAlt } from "react-icons/fa";
+import RelatedProduct from '../component/RelatedProduct';
 
 
 function ProductDetail() {
@@ -112,8 +113,18 @@ function ProductDetail() {
     {/*New section */}
     <div className='w-[100%] min-h-[70vh] bg-gradient-to-l from-[#141414] to-[#0c2025] flex items-start justify-start flex-col overflow-x-hidden '>
      <div className='flex px-[20px] mt-[90px] lg:ml-[80px] ml-[0px]  lg:mt-[0px] '>
+          <p className='border px-5 py-3 text-sm text-white  '>Description</p>
+          <p className=' border px-5 py-3 text-sm text-white '>Reviews</p>
 
      </div>
+     <div className='w-[80%] md:h-[150px] h-[220px] bg-[#3336397c] border text-white text-[13px] md:text-[15px] lg:text-[20px] px-[10px] md:px-[30px] lg:ml-[100px] ml-[20px] '>
+          <p className='w-[95%] h-[90%] flex items-center justify-center '>
+               Upgrade your wardrobe with this stylish slim-fit cotton shirt, avilable now on E-Store. Crafted from breathable, high-quality fabric, it offers all-day comfort and effortless style. Easy to maintain and perfect for any setting, this shirt is a must-have essential for those who value both fashion and function.
+
+          </p>
+
+     </div>
+     <RelatedProduct category={productData.category} subCategory={productData.subCategory} currentProductId={productData._id}/>
 
     </div>
 
