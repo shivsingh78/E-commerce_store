@@ -9,6 +9,7 @@ import About from './pages/About.jsx'
 import Collections from './pages/Collections.jsx'
 import Product from './pages/Product.jsx'
 import Contact from './pages/Contact.jsx'
+import ProductDetail from './pages/ProductDetail.jsx'
 
 function App() {
   let {userData} =useContext(userDataContext)
@@ -39,6 +40,9 @@ function App() {
 
       <Route path='/contact' 
       element={userData ? <Contact/> : <Navigate to="/login" state={{from: location.pathname}} />} />
+
+      <Route path='/productdetail/:productId' 
+      element={userData ? <ProductDetail/> : <Navigate to="/login" state={{from: location.pathname}} />} />
 
     </Routes>
     </>
