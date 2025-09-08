@@ -9,6 +9,7 @@ function ShopContext({ children }) {
   const [search,setSearch] = useState('')
   const [showSearch,setShowSearch] =useState(false)
   const { serverUrl } = useContext(authDataContext)
+  const [cartItem, setCartItem] = useState({})
 
   const currency = '₹'
   const delivery_fee = 40
@@ -23,6 +24,50 @@ function ShopContext({ children }) {
     }
   }
 
+  const addtoCart = async (itemId , size) => {
+    if(!size) {
+      console.log("Select Product Size");
+      return ;
+      
+    }
+    let cartData = structuredClone(cartItem) // clone the product 
+
+    if(cartData[itemId]) {
+      if(cartData[itemId][size]) {
+        cartData[itemId][size] +=1;
+      } else{
+        cartData[itemId][size] =1;
+      }
+    }
+    else{
+      cartData[itemId] ={}
+      cartData[itemId][size] = 1;
+
+    }
+    setCartItem(cartData)
+    console.log(cartData)
+    
+  }
+  const getCartCount = () => {
+    let totalCount =0;
+    for(const items in cartItem){
+      for(const item in cartItem[items]){
+        try {
+          if(cartItem[items][item] > 0) {
+            totalCount += cartItem[items][item]
+          }
+        } catch (error) {
+          console.log(error);
+          
+          
+        }
+      }
+    }
+    return totalCount
+  }
+
+
+
   // ✅ Run on mount
   useEffect(() => {
     getProducts()
@@ -36,7 +81,11 @@ function ShopContext({ children }) {
     search,
     setSearch,
     showSearch,
-    setShowSearch
+    setShowSearch,
+    cartItem,
+    addtoCart,
+    getCartCount,
+    setCartItem
   }
 
   return (

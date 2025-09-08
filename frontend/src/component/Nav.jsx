@@ -18,7 +18,7 @@ function Nav() {
   const {serverUrl} = useContext(authDataContext)
 
   // Local states
-  const {showSearch, setShowSearch,search,setSearch} = useContext(shopDataContext)
+  const {showSearch, setShowSearch,search,setSearch,getCartCount} = useContext(shopDataContext)
   const [showProfile, setShowProfile] = useState(false);
   let navigate = useNavigate()
   const handleLogout = async () =>{
@@ -96,7 +96,7 @@ function Nav() {
           <IoCartOutline className="w-[30px] h-[30px] text-black cursor-pointer hidden md:block" />
           {/* Cart Item Count */}
           <p className="absolute flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-black text-white rounded-full text-[9px] top-[-5px] right-[-8px] hidden md:flex">
-  10
+  {getCartCount()}
 </p>
 
             
@@ -151,7 +151,7 @@ function Nav() {
           Cart
 
         </button>
-        <p className="absolute w-[18px] h-[18px] flex items-center justify-center bg-white px-[5px] py-[20x] text-black fonht-semibold rounded-full text-[9px] top-[8px] right-[18px] ">10</p>
+        <p className="absolute w-[18px] h-[18px] flex items-center justify-center bg-white px-[5px] py-[20x] text-black fonht-semibold rounded-full text-[9px] top-[8px] right-[18px] ">{getCartCount()}</p>
         
          </div>
     </div>
