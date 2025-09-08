@@ -12,6 +12,7 @@ import Contact from './pages/Contact.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
 import { ToastContainer } from 'react-toastify';
 import Cart from './pages/Cart.jsx'
+import PlaceOrder from './pages/PlaceOrder.jsx'
 
 
 function App() {
@@ -51,6 +52,10 @@ function App() {
 
       <Route path='/cart' 
       element={userData ? <Cart/> : <Navigate to="/login" state={{from: location.pathname}} />} />
+
+      <Route path='/placeorder' 
+      element={userData ? <PlaceOrder/> : <Navigate to="/login" state={{from: location.pathname}} />} />
+
 
 
       

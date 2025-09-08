@@ -93,7 +93,7 @@ function Nav() {
 
         {/* Cart Icon */}
         <div className="relative">
-          <IoCartOutline className="w-[30px] h-[30px] text-black cursor-pointer hidden md:block" />
+          <IoCartOutline className="w-[30px] h-[30px] text-black cursor-pointer hidden md:block" onClick={()=>navigate("/cart")} />
           {/* Cart Item Count */}
           <p className="absolute flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-black text-white rounded-full text-[9px] top-[-5px] right-[-8px] hidden md:flex">
   {getCartCount()}
@@ -145,7 +145,7 @@ function Nav() {
           Contact
 
         </button>
-        <button className="text-[white] flex items-center justify-center flex-col gap-[2px] " >
+        <button className="text-[white] flex items-center justify-center flex-col gap-[2px] " onClick={()=>navigate("/cart")} >
           <IoCartOutline className="w-[28px] h-[28px] text-[white] md:hidden " />
           
           Cart
