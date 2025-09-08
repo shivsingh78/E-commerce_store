@@ -10,12 +10,17 @@ import Collections from './pages/Collections.jsx'
 import Product from './pages/Product.jsx'
 import Contact from './pages/Contact.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
+import { ToastContainer } from 'react-toastify';
+import Cart from './pages/Cart.jsx'
+
 
 function App() {
   let {userData} =useContext(userDataContext)
   let location = useLocation()
   return (
     <>
+     {/* your routes/components */}
+      <ToastContainer position="top-right" autoClose={3000} />
  
      {userData&& <Nav />}
     <Routes>
@@ -43,6 +48,12 @@ function App() {
 
       <Route path='/productdetail/:productId' 
       element={userData ? <ProductDetail/> : <Navigate to="/login" state={{from: location.pathname}} />} />
+
+      <Route path='/cart' 
+      element={userData ? <Cart/> : <Navigate to="/login" state={{from: location.pathname}} />} />
+
+
+      
 
     </Routes>
     </>

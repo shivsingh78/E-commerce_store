@@ -1,3 +1,4 @@
+import User from '../model/userModel.js'
 // Add item to user's cart
 export const addToCart = async (req, res) => {
      try {
