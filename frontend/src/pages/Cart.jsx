@@ -141,7 +141,7 @@ function Cart() {
       }
          
        }
-      className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold w-full sm:w-auto text-center"
+      className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold w-full sm:w-auto text-center cursor-pointer"
     >
       Checkout →
     </button>
