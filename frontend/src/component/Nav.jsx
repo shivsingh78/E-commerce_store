@@ -124,7 +124,7 @@ function Nav() {
             {userData&& <li className="w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer " onClick={()=>{handleLogout();setShowProfile(false);navigate("/login")}}>LogOut</li>}
 
             <li className="w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer ">Orders</li>
-            <li className="w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer "onClick={()=>{navigate("/collection"); setShowProfile(false)}}>About</li>
+            <li className="w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer "onClick={()=>{navigate("/about"); setShowProfile(false)}}>About</li>
           </ul>
           
         </div>

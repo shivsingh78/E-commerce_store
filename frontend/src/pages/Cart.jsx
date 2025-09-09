@@ -3,7 +3,8 @@ import Title from "../component/Title";
 import { shopDataContext } from "../context/ShopContext";
 import { useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
+import CartTotal from "../component/CartTotal";
 
 function Cart() {
   const { products, currency, cartItem, updateQuantity } =
@@ -29,8 +30,16 @@ function Cart() {
 
   // Remove product completely
   const removeProduct = (productId, size) => {
-    updateQuantity(productId, size, 0); // Set quantity to 0
+    updateQuantity(productId, size, 0);
   };
+
+  // Totals
+  const subtotal = cartData.reduce((acc, item) => {
+    const product = products.find((p) => p._id === item._id);
+    return acc + (product?.price || 0) * item.quantity;
+  }, 0);
+  const shipping = subtotal > 0 ? 50 : 0;
+  const total = subtotal + shipping;
 
   return (
     <div className="w-full min-h-screen p-4 sm:p-6 bg-gradient-to-l from-[#141414] to-[#0c2025]">
@@ -40,14 +49,12 @@ function Cart() {
       </div>
 
       {/* Cart Items */}
-      <div className="max-w-4xl mx-auto flex flex-col gap-6">
+      <div className="max-w-4xl mx-auto flex flex-col gap-6 pb-[300px] sm:pb-16">
         {cartData.length === 0 ? (
           <p className="text-center text-gray-400">Your cart is empty.</p>
         ) : (
           cartData.map((item, index) => {
-            const productData = products.find(
-              (product) => product._id === item._id
-            );
+            const productData = products.find((p) => p._id === item._id);
 
             return (
               <div
@@ -61,7 +68,7 @@ function Cart() {
                   className="w-28 h-28 object-cover rounded-lg flex-shrink-0"
                 />
 
-                {/* Middle: Info */}
+                {/* Middle */}
                 <div className="flex-1 text-white text-center sm:text-left">
                   <h3 className="text-lg font-semibold">{productData?.name}</h3>
                   <p className="text-sm text-gray-400">Size: {item.size}</p>
@@ -71,7 +78,7 @@ function Cart() {
                   </p>
                 </div>
 
-                {/* Right: Quantity & Total */}
+                {/* Right */}
                 <div className="flex flex-col items-center sm:items-end gap-2">
                   <div className="flex items-center gap-2">
                     <button
@@ -82,7 +89,9 @@ function Cart() {
                     >
                       -
                     </button>
-                    <span className="text-white font-medium">{item.quantity}</span>
+                    <span className="text-white font-medium">
+                      {item.quantity}
+                    </span>
                     <button
                       onClick={() =>
                         updateQuantity(item._id, item.size, item.quantity + 1)
@@ -96,7 +105,6 @@ function Cart() {
                     {currency}
                     {productData?.price * item.quantity}
                   </p>
-                  {/* Dustbin / Remove Button */}
                   <button
                     onClick={() => removeProduct(item._id, item.size)}
                     className="mt-2 text-red-500 hover:text-red-700 cursor-pointer"
@@ -111,44 +119,22 @@ function Cart() {
         )}
       </div>
 
-      {/* Checkout Section */}
+      {/* Cart Total */}
       {cartData.length > 0 && (
-  <div className="fixed bottom-0 left-0 w-full sm:relative sm:max-w-4xl sm:mx-auto bg-[#1a2a2f] rounded-t-2xl sm:rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center shadow-lg z-50 mt-[10px]">
-    
-    {/* Total Amount */}
-    <p className="text-lg text-white font-semibold text-center sm:text-left w-full sm:w-auto mb-2 sm:mb-0">
-      Total:{" "}
-      {currency}
-      {cartData.reduce((acc, item) => {
-        const productData = products.find(
-          (product) => product._id === item._id
-        );
-        return acc + productData?.price * item.quantity;
-      }, 0)}
-    </p>
-
-    {/* Checkout Button */}
-    <button
-      onClick={() => {
-           if(cartData.length >0){
-               navigate("/placeorder")
-          } else{
-               console.log("your cart is empty");
-               toast.error("Your cart is empty")
-
-               
-          }
-      }
-         
-       }
-      className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold w-full sm:w-auto text-center cursor-pointer"
-    >
-      Checkout →
-    </button>
-
-  </div>
-)}
-
+        <CartTotal
+          currency={currency}
+          subtotal={subtotal}
+          shipping={shipping}
+          total={total}
+          onCheckout={() => {
+            if (cartData.length > 0) {
+              navigate("/placeorder");
+            } else {
+              toast.error("Your cart is empty");
+            }
+          }} 
+        />
+      )}
     </div>
   );
 }

@@ -6,3 +6,5 @@ const orderRoutes = express.Router();
 
 
 orderRoutes.post("/placeorder",isAuth,placeOrder)
+
+export default orderRoutes;
