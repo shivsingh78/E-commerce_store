@@ -1,54 +1,134 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Title from '../component/Title'
 import CartTotal from '../component/CartTotal'
 import razorpay  from '../assets/razorpay.jpg'
+import { shopDataContext } from '../context/ShopContext'
+import { toast } from 'react-toastify'
+import { authDataContext } from '../context/AuthContext'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function PlaceOrder() {
   let [method,setMethod] = useState('cod')
+  let navigate = useNavigate()
+  let {cartItem,setCartItem,getCartAmount,delivery_fee,products} = useContext(shopDataContext)
+  let {serverUrl} = useContext(authDataContext)
+
+
+  let [formData,setFormData] = useState({
+    firstName:'',
+    lastName:'',
+    email:'',
+    street:'',
+    city:'',
+    state:'',
+    pinCode:'',
+    country:'',
+    phone:''
+  })
+
+  const onChangeHandler = (e)=>{
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormData(data => ({...data,[name]:value}))
+  }
+
+  const onSubmitHandler = async(e) =>{
+      e.preventDefault()
+      try {
+        let orderItems = []
+        for(const items in cartItem){
+          for(const item in cartItem[items]){
+            if(cartItem[items][item]>0){
+              const itemInfo = structuredClone(products.find(product=> product._id === items))
+              if(itemInfo){
+                itemInfo.size = item;
+                itemInfo.quantity = cartItem[items][item]
+                orderItems.push(itemInfo)
+              }
+            }
+          }
+        }
+        let orderData = {
+          address:formData,
+          items:orderItems,
+          amount:getCartAmount() + delivery_fee
+        }
+        
+        switch (method) {
+          case 'cod':
+            const result = await axios.post(serverUrl + "/api/order/placeorder", orderData, {withCredentials:true})
+            
+            console.log("result data",result.data)
+            
+            if(result.data){
+              setCartItem({})
+              navigate("/order")
+
+            } else{
+              console.log(result.data.message);
+              
+            }
+            break;
+          default:
+            break;
+        }
+        
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message)
+        
+        
+      }
+    }
+
+
+
+
   return (
     <div className='w-[100vw] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025]  flex items-center justify-center flex-col md:flex-row gap-[50px] relative '>
 
       <div className='lg:w-[50%] w-[100%] flex items-center justify-center lg:mt-[0px] mt-[90px] '>
-        <form action="" className='lg:w-[70%] w-[95%] lg:h-[70%] h-[100%] '>
+        <form action="" className='lg:w-[70%] w-[95%] lg:h-[70%] h-[100%] ' onSubmit={onSubmitHandler}>
           <div className='py-[10px] '>
             <Title text1={'DELIVERY'} text2={'INFORMATION'}/>
           </div>
           <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
 
-            <input type="text" placeholder='First name' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
+            <input type="text" placeholder='First name' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required  onChange={onChangeHandler} name='firstName' value={formData.firstName}/>
 
-            <input type="text" placeholder='Last name' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
-
-
-          </div>
-
-          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
-
-            <input type="text" placeholder='Email address' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
-
-
-          </div>
-          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
-
-            <input type="text" placeholder='Street' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
+            <input type="text" placeholder='Last name' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='lastName' value={formData.lastName} />
 
 
           </div>
 
           <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
 
-            <input type="text" placeholder='City' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
+            <input type="text" placeholder='Email address' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required  onChange={onChangeHandler} name='email' value={formData.email}/>
 
-            <input type="text" placeholder='State' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
+
+          </div>
+          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
+
+            <input type="text" placeholder='Street' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='street' value={formData.street} />
 
 
           </div>
 
           <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
 
-            <input type="text" placeholder='Pincode' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
+            <input type="text" placeholder='City' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='city' value={formData.city} />
 
-            <input type="text" placeholder='Country' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
+            <input type="text" placeholder='State' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='state' value={formData.state} />
+
+
+          </div>
+
+          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
+
+            <input type="text" placeholder='Pincode' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='pinCode' value={formData.pinCode} />
+
+            <input type="text" placeholder='Country' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='country' value={formData.country}/>
 
 
           </div>
@@ -58,13 +138,13 @@ function PlaceOrder() {
 
           <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
 
-            <input type="text" placeholder='Phone' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required />
+            <input type="text" placeholder='Phone' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='phone' value={formData.phone}/>
 
 
           </div>
 
           <div >
-            <button type='submit' className='text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-[10px] px-[50px] rounded-2xl text-white flex items-center justify-center gap-[20px] absolute lg:right-[20%] bottom-[10%] right-[35%] border-[1px] border-[#80808049] ml-[30px] mt-[20px]  '>
+            <button type='submit' className='text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-[10px] px-[50px] rounded-2xl text-white flex items-center justify-center gap-[20px] absolute lg:right-[20%] bottom-[10%] right-[35%] border-[1px] border-[#80808049] ml-[30px] mt-[20px]  ' >
               PLACE ORDER
             </button>
 
