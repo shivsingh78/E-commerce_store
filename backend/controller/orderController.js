@@ -13,7 +13,7 @@ key_secret:process.env.RAZORPAY_KEY_SECRET,
 
 })
 console.log("Razorpay ID:", process.env.RAZORPAY_KEY_ID)
-console.log("Razorpay Secret:", process.env.RAZORPAY_KEY_SECRET ? "Loaded" : "Missing")
+
 export const placeOrder = async (req,res) => {
      try {
           const {items , amount , address} = req.body;
@@ -86,6 +86,27 @@ export const placeOrderRazorpay = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const verifyRazorpay = async (req,res) => {
+     try {
+          const userId = req.userId;
+          const {razorpay_order_id} = req.body;
+          const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
+          if(orderInfo.status === 'paid'){
+               await Order.findByIdAndUpdate(orderInfo.receipt,{payment:true});
+               await User.findByIdAndUpdate(userId,{cartData:{}})
+               res.status(200).json({message:'Payment Successful'})
+          } else {
+               res.json({message:'Payment Failed'})
+          }
+
+     } catch (error) {
+          console.log(error);
+          res.status(500).json({message:error.message})
+          
+          
+     }
+}
 
 
 // for user
