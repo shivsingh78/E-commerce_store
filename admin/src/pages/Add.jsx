@@ -4,6 +4,8 @@ import Sidebar from '../component/Sidebar'
 import upload from '../assets/upload.jpg'
 import { authDataContext } from '../context/AuthContext'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import Loading from '../component/Loading'
 
 function Add() {
   let [image1,setImage1] = useState(false)
@@ -17,12 +19,15 @@ function Add() {
      const [subCategory,setSubCategory] = useState("TopWear")
      const [bestseller,setBestseller] = useState(false)
      const [sizes,setSizes] = useState([])
+     const [loading,setLoading] = useState(false)
      let {serverUrl} = useContext(authDataContext)
+     
 
 
      // create function to handle submit form
 
      const handleAddProduct = async (e) => {
+      setLoading(true)
       e.preventDefault()
       try {
         let formData = new FormData()
@@ -40,6 +45,8 @@ function Add() {
 
         let result = await axios.post(serverUrl + "/api/product/addproduct", formData,{withCredentials:true})
         console.log(result.data);
+        toast.success("Add Product Successfully")
+        setLoading(false)
 
         if(result.data){
           setName("")
@@ -57,6 +64,8 @@ function Add() {
         
       } catch (error) {
         console.log(error);
+        setLoading(false)
+        toast.success("Add Product Failed")
         
         
       }
@@ -197,7 +206,7 @@ function Add() {
           </div>
           {/*Button*/}
           <button className='w-[140px] px-[20px] py-[20px] rounded-xl bg-[#65d8f7] flex items-center justify-center gap-[10px] text-balck active:bg-slate-700 active:text-white active:border-[2px] border-white cursor-pointer'>
-            Add Product
+           {loading ? <Loading/> : " Add Product" }
 
           </button>
         </form>

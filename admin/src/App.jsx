@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Orders from './pages/Orders'
 import { useContext } from 'react';
 import { adminDataContext } from './context/AdminContext';
+import { ToastContainer,toast } from 'react-toastify';
 
 
 
@@ -15,6 +16,7 @@ function App() {
   
   return (
     <>
+    <ToastContainer/>
      {
       !adminData ? <Login/> : <>
       <Routes>

@@ -63,27 +63,27 @@ let image4 = req.files?.image4 ? await uploadOnCloudinary(req.files.image4[0].pa
 export const listProduct = async (req,res) => {
   try {
     const product = await Product.find({})
-    return res.status(200).json(product)
-    
+    return res.status(200).json(product || [])
   } catch (error) {
     return res.status(500).json({ message: `ListProduct error: ${error.message}` });
-    
   }
 }
 
 
-export const removeProduct = async (req,res) => {
 
+export const removeProduct = async (req, res) => {
   try {
-    let {id} = req.params;
-    const product = await Product.findOneAndDelete(id)
-    return res.status(200).json(product)
+    console.log("Remove route hit:", req.params.id);
 
-    
+    let { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    return res.status(200).json({ message: "Product deleted", product });
   } catch (error) {
     return res.status(500).json({ message: `RemoveProduct error: ${error.message}` });
-    
   }
-}
-
-
+};
