@@ -4,7 +4,7 @@ export const addToCart = async (req, res) => {
      try {
           const { itemId, size } = req.body;  // Extract itemId and size from request body
           const userData = await User.findById(req.userId); // Find the user by ID from JWT/session
-
+ 
           // If user does not exist, return error
           if (!userData) {
                return res.status(404).json({ message: "User not found" });

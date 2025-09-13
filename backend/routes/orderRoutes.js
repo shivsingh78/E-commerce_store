@@ -4,7 +4,7 @@ import { allOrders, placeOrder, placeOrderRazorpay, updateStatus, userOrders } f
 import adminAuth from '../middleware/adminAuth.js'
 
 const orderRoutes = express.Router();
-
+ 
 //for user 
 orderRoutes.post("/placeorder",isAuth,placeOrder)
 orderRoutes.post("/razorpay",isAuth,placeOrderRazorpay)
