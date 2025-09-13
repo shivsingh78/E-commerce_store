@@ -9,7 +9,7 @@ import axios from "axios";
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
 import { userDataContext } from "../context/UserContext";
-
+import {toast} from 'react-toastify'
 function Login() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -27,11 +27,13 @@ function Login() {
         },{withCredentials:true})
         console.log(result.data);
         await getCurrentUser()
-        navigate("/")
         
+        navigate("/")
+        toast.success("User Loged In Successfully")
         
       } catch (error) {
         console.log(error);
+        toast.error("User Loged In Failed")
         
         
       }
@@ -48,12 +50,14 @@ function Login() {
          console.log(result.data);
           getCurrentUser()
         navigate("/")
+        toast.success("User Loged In Successfully")
          
          
           
           
         } catch (error) {
           console.log(error);
+          toast.error("User Loged In Failed")
           
           
         }

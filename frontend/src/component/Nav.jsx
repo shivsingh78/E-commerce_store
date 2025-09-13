@@ -11,6 +11,7 @@ import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { authDataContext } from "../context/AuthContext";
 import { shopDataContext } from '../context/ShopContext'
+import { toast } from "react-toastify";
 
 function Nav() {
   // Context: user data (from your UserContext)
@@ -26,10 +27,12 @@ function Nav() {
       const result = await axios.get(serverUrl + "/api/auth/logout" , {withCredentials:true})
       console.log(result.data);
       getCurrentUser()
+      toast.success("User Loged Out Successfully")
      
       
     } catch (error) {
       console.log(error);
+      toast.success("User Loged Our Error")
       
       
     }

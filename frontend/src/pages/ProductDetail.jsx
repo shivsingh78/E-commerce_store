@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { shopDataContext } from "../context/ShopContext";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import RelatedProduct from "../component/RelatedProduct";
+import Loading from "../component/Loading";
 
 function ProductDetail() {
   let { productId } = useParams();
-  let { products, currency, addtoCart } = useContext(shopDataContext);
+  let { products, currency, addtoCart , loading } = useContext(shopDataContext);
   let [productData, setProductData] = useState(false);
-
   const [image, setImage] = useState("");
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
@@ -121,10 +121,10 @@ function ProductDetail() {
 
             {/* Add to Cart Button */}
             <button
-              className="mt-4 bg-[#495b61c9] px-5 py-2 rounded-xl border border-gray-500 text-white text-sm sm:text-base shadow-md active:bg-slate-500 cursor-pointer"
-              onClick={() => addtoCart(productData._id, size)}
+              className="mt-4 bg-[#495b61c9] px-5 py-2 rounded-xl border border-gray-500 text-white text-sm sm:text-base shadow-md active:bg-slate-500 cursor-pointer" 
+              onClick={() => addtoCart(productData._id, size)}   disabled={loading}
             >
-              Add To Cart
+              {loading ? <Loading /> : "Add To Cart"}
             </button>
           </div>
 

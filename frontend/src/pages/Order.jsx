@@ -9,6 +9,7 @@ function Order() {
      let [orderData,setOrderData] = useState([]);
      let {currency} =useContext(shopDataContext)
      let {serverUrl} = useContext(authDataContext)
+     let [loading,setLoading] = useState(false)
 
      const loadOrderData = async () => {
           try {

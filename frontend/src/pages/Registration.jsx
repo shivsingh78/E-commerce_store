@@ -8,6 +8,7 @@ import axios from 'axios'
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
 import { userDataContext } from '../context/UserContext';
+import {toast} from 'react-toastify'
 
 function Registration() {
   let [show, setShow] = useState(false)
@@ -32,9 +33,11 @@ function Registration() {
 
       getCurrentUser()
       navigate("/")
+      toast.success("User Registered Successfully")
 
     } catch (error) {
       console.log(error);
+      toast.error("User Registration Failed")
     }
   }
 
@@ -49,9 +52,11 @@ function Registration() {
 
       getCurrentUser()
       navigate("/")
+      toast.success("User Registerd Successfully")
 
     } catch (error) {
       console.log(error);
+      toast.error("User Registration Failed")
     }
   }
 

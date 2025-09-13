@@ -14,7 +14,7 @@ function ShopContext({ children }) {
   const [loading, setLoading] = useState(false)
   const { serverUrl } = useContext(authDataContext)
   const [cartItem, setCartItem] = useState({})
-
+ 
   const currency = '₹'
   const delivery_fee = 40
 
@@ -31,35 +31,44 @@ function ShopContext({ children }) {
 
   // ✅ Add item to cart
   const addtoCart = async (itemId, size) => {
-    if (!size) {
-      toast.error("Select product size")
-      return
-    }
+  if (!size) {
+    toast.error("Select product size");
+    return;
+  }
 
-    let cartData = structuredClone(cartItem)
+  setLoading(true);
+
+  try {
+    let cartData = structuredClone(cartItem);
 
     if (cartData[itemId]) {
       if (cartData[itemId][size]) {
-        cartData[itemId][size] += 1
+        cartData[itemId][size] += 1;
       } else {
-        cartData[itemId][size] = 1
+        cartData[itemId][size] = 1;
       }
     } else {
-      cartData[itemId] = {}
-      cartData[itemId][size] = 1
+      cartData[itemId] = {};
+      cartData[itemId][size] = 1;
     }
 
-    setCartItem(cartData)
+    setCartItem(cartData);
 
-    // ✅ Save to DB if logged in
+    // Only after updating local cart, call DB if logged in
     if (userData) {
-      try {
-        await axios.post(serverUrl + '/api/cart/add', { itemId, size }, { withCredentials: true })
-      } catch (error) {
-        console.log(error)
-      }
+      await axios.post(
+        serverUrl + "/api/cart/add",
+        { itemId, size },
+        { withCredentials: true }
+      );
     }
+  } catch (error) {
+    console.log(error);
+    toast.error("Failed to add to cart");
+  } finally {
+    setLoading(false); // ensures loading is set to false after async operation
   }
+};
 
   // ✅ Get user cart from DB
   const getUserCart = async () => {

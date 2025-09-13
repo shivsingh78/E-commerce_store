@@ -8,6 +8,7 @@ import { authDataContext } from '../context/AuthContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+
 function PlaceOrder() {
   let [method,setMethod] = useState('cod')
   let navigate = useNavigate()
@@ -47,9 +48,10 @@ function PlaceOrder() {
 
         const {data} = await axios.post(serverUrl + '/api/order/verifyrazorpay',response,{withCredentials:true})
         if(data){
+            toast.success("Payment Successful!");
           navigate("/order")
           setCartItem({})
-        }
+        } 
         
       }
       
@@ -85,13 +87,15 @@ function PlaceOrder() {
             const result = await axios.post(serverUrl + "/api/order/placeorder", orderData, {withCredentials:true})
             
             console.log("result data",result.data)
+            toast.success("Order Placed Successfully")
             
             if(result.data){
               setCartItem({})
               navigate("/order")
 
             } else{
-              console.log(result.data.message);
+              
+              toast.error(result.data?.message || "Failed to place order")
               
             }
             break;
@@ -101,6 +105,8 @@ function PlaceOrder() {
               if(resultRazorpay.data){
                 initPay(resultRazorpay.data);
                 
+              } else{
+                   toast.error("Failed to initialize Razorpay");
               }
               break;
 

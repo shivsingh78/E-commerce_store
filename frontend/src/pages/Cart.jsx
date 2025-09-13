@@ -11,6 +11,7 @@ function Cart() {
     useContext(shopDataContext);
   const [cartData, setCartData] = useState([]);
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(false)
 
   useEffect(() => {
     const tempData = [];
