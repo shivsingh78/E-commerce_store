@@ -233,16 +233,18 @@ function PlaceOrder() {
 
   {/* Payment Buttons */}
   <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
-    <button 
-      onClick={() => setMethod('razorpay')} 
-      className={`w-full sm:w-1/2 h-[55px] bg-white rounded-md flex items-center justify-center ${method === 'razorpay' ? 'border-4 border-blue-900' : 'border border-gray-300'}`}
-    >
-      <img 
-        src={razorpay} 
-        className="h-[35px] w-auto object-contain" 
-        alt="Razorpay" 
-      />
-    </button>
+    {/* Razorpay Button */}
+<button 
+  onClick={() => setMethod('razorpay')} 
+  className={`w-full sm:w-1/2 h-[55px] bg-white rounded-md flex items-center justify-center 
+              ${method === 'razorpay' ? 'border-4 border-blue-900' : 'border border-gray-300'}`}
+>
+  <img 
+    src={razorpay} 
+    alt="Razorpay" 
+    className="h-[28px] sm:h-[35px] w-auto object-contain" 
+  />
+</button>
 
     <button 
       onClick={() => setMethod('cod')} 
