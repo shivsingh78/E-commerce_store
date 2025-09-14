@@ -125,99 +125,129 @@ function PlaceOrder() {
 
 
 
-  return (
-    <div className='w-[100vw] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025]  flex items-center justify-center flex-col md:flex-row gap-[50px] relative '>
+ return (
+  <div className='w-full min-h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] flex flex-col lg:flex-row items-start lg:items-center justify-center gap-8 px-4 py-10'>
 
-      <div className='lg:w-[50%] w-[100%] flex items-center justify-center lg:mt-[0px] mt-[90px] '>
-        <form action="" className='lg:w-[70%] w-[95%] lg:h-[70%] h-[100%] ' onSubmit={onSubmitHandler}>
-          <div className='py-[10px] '>
-            <Title text1={'DELIVERY'} text2={'INFORMATION'}/>
-          </div>
-          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
-
-            <input type="text" placeholder='First name' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required  onChange={onChangeHandler} name='firstName' value={formData.firstName}/>
-
-            <input type="text" placeholder='Last name' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='lastName' value={formData.lastName} />
-
-
-          </div>
-
-          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
-
-            <input type="text" placeholder='Email address' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required  onChange={onChangeHandler} name='email' value={formData.email}/>
-
-
-          </div>
-          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
-
-            <input type="text" placeholder='Street' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='street' value={formData.street} />
-
-
-          </div>
-
-          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
-
-            <input type="text" placeholder='City' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='city' value={formData.city} />
-
-            <input type="text" placeholder='State' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='state' value={formData.state} />
-
-
-          </div>
-
-          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
-
-            <input type="text" placeholder='Pincode' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='pinCode' value={formData.pinCode} />
-
-            <input type="text" placeholder='Country' className='w-[48%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='country' value={formData.country}/>
-
-
-          </div>
-
-
-
-
-          <div className='w-[100%] h-[70px] flex item-center justify-between px-[10px] '>
-
-            <input type="text" placeholder='Phone' className='w-[100%] h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 placeholder:text-[white] text-[18px] px-[20px]' required onChange={onChangeHandler} name='phone' value={formData.phone}/>
-
-
-          </div>
-
-          <div >
-            <button type='submit' className='text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-[10px] px-[50px] rounded-2xl text-white flex items-center justify-center gap-[20px] absolute lg:right-[20%] bottom-[10%] right-[35%] border-[1px] border-[#80808049] ml-[30px] mt-[20px]  ' >
-              PLACE ORDER
-            </button>
-
-          </div>
-          
-        </form>
-
-      </div>
-      <div className='lg:w-[50%] w-[100%] min-h-[100%] flex items-center justify-center gap-[30px]v '>
-          <div className='lg:w-[70%] w-[90%] lg:h-[70%] h-[100%] flex items-center justify-center gap-[10px] flex-col  '>
-            <CartTotal showButton={false}/>
-             <div className='py-[10px] '>
-            <Title text1={'PAYMENT'} text2={'METHOD'}/>
-          </div>
-
-          <div className='w-[100%] h-[30vh] lg:h-[100px] flex items-start mt-[20px] lg:mt-[0px] justify-center gap-[50px]  '>
-
-            <button onClick={()=>setMethod('razorpay')} className= {`w-[200px] h-[50px] bg-gradient-to-l from-[#95b3f8] to-[white] text-[14px] px-[20px] rounded-sm text-[#332f6f] font-bold ${method === 'razorpay' ? 'border-[5px] border-blue-900 rounded-sm ' : ''}`}  >
-            <img src={razorpay} className='w-[100%] h-[100%]  object-fill rounded-sm '  alt="" />
-            </button>
-
-            <button onClick={()=>setMethod('cod')} className= {`w-[200px] h-[50px] bg-gradient-to-l from-[#95b3f8] to-[white] text-[14px] px-[20px] rounded-sm text-[#332f6f] font-bold ${method === 'cod' ? 'border-[5px] border-blue-900 rounded-sm ' : ''}`}  >
-              CASH ON DELIVERY
-            </button>
-
-          </div>
-
-          </div>
-
+    {/* Left Side - Delivery Form */}
+    <div className='lg:w-1/2 w-full flex items-center justify-center'>
+      <form 
+        action="" 
+        className='w-full max-w-lg bg-transparent' 
+        onSubmit={onSubmitHandler}
+      >
+        <div className='py-4'>
+          <Title text1={'DELIVERY'} text2={'INFORMATION'} />
         </div>
 
+        {/* Name */}
+        <div className='flex flex-col sm:flex-row gap-4 mb-4'>
+          <input 
+            type="text" placeholder='First name'
+            className='flex-1 h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='firstName' value={formData.firstName} onChange={onChangeHandler}
+          />
+          <input 
+            type="text" placeholder='Last name'
+            className='flex-1 h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='lastName' value={formData.lastName} onChange={onChangeHandler}
+          />
+        </div>
+
+        {/* Email */}
+        <div className='mb-4'>
+          <input 
+            type="email" placeholder='Email address'
+            className='w-full h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='email' value={formData.email} onChange={onChangeHandler}
+          />
+        </div>
+
+        {/* Street */}
+        <div className='mb-4'>
+          <input 
+            type="text" placeholder='Street'
+            className='w-full h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='street' value={formData.street} onChange={onChangeHandler}
+          />
+        </div>
+
+        {/* City & State */}
+        <div className='flex flex-col sm:flex-row gap-4 mb-4'>
+          <input 
+            type="text" placeholder='City'
+            className='flex-1 h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='city' value={formData.city} onChange={onChangeHandler}
+          />
+          <input 
+            type="text" placeholder='State'
+            className='flex-1 h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='state' value={formData.state} onChange={onChangeHandler}
+          />
+        </div>
+
+        {/* Pincode & Country */}
+        <div className='flex flex-col sm:flex-row gap-4 mb-4'>
+          <input 
+            type="text" placeholder='Pincode'
+            className='flex-1 h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='pinCode' value={formData.pinCode} onChange={onChangeHandler}
+          />
+          <input 
+            type="text" placeholder='Country'
+            className='flex-1 h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='country' value={formData.country} onChange={onChangeHandler}
+          />
+        </div>
+
+        {/* Phone */}
+        <div className='mb-6'>
+          <input 
+            type="text" placeholder='Phone'
+            className='w-full h-[50px] rounded-md shadow-sm shadow-[#343434] bg-slate-700 text-white placeholder:text-white text-[16px] px-4'
+            required name='phone' value={formData.phone} onChange={onChangeHandler}
+          />
+        </div>
+
+        {/* Submit */}
+        <div className='w-full flex justify-center'>
+          <button 
+            type='submit' 
+            className='w-full sm:w-auto text-[18px] bg-[#3bcee848] py-3 px-8 rounded-2xl text-white border border-gray-500 hover:bg-[#3bcee880]'
+          >
+            PLACE ORDER
+          </button>
+        </div>
+      </form>
     </div>
-  )
+
+    {/* Right Side - Cart & Payment */}
+    <div className='lg:w-1/2 w-full flex flex-col items-center gap-6'>
+      <CartTotal showButton={false} />
+
+      <div className='py-2'>
+        <Title text1={'PAYMENT'} text2={'METHOD'} />
+      </div>
+
+      {/* Payment Buttons */}
+      <div className='w-full flex flex-col sm:flex-row items-center justify-center gap-4'>
+        <button 
+          onClick={() => setMethod('razorpay')} 
+          className={`w-full sm:w-[45%] h-[50px] bg-gradient-to-l from-[#95b3f8] to-white rounded-md font-bold ${method === 'razorpay' ? 'border-4 border-blue-900' : ''}`}
+        >
+          <img src={razorpay} className='w-full h-full object-contain rounded-md' alt="" />
+        </button>
+
+        <button 
+          onClick={() => setMethod('cod')} 
+          className={`w-full sm:w-[45%] h-[50px] bg-gradient-to-l from-[#95b3f8] to-white rounded-md font-bold flex items-center justify-center text-sm text-[#332f6f] ${method === 'cod' ? 'border-4 border-blue-900' : ''}`}
+        >
+          CASH ON DELIVERY
+        </button>
+      </div>
+    </div>
+  </div>
+)
+
 }
 
 export default PlaceOrder
