@@ -222,9 +222,9 @@ function PlaceOrder() {
 
     {/* Right Side - Cart & Payment */}
    {/* Right Side - Cart & Payment */}
-<div className='lg:w-1/2 w-full flex flex-col items-center gap-6 px-2'>
+<div className='lg:w-1/2 w-full flex flex-col-reverse lg:flex-col items-center gap-6 px-2'>
 
-  {/* Cart Total */}
+  {/* Cart Total - goes bottom on mobile, top on desktop */}
   <CartTotal showButton={false} />
 
   <div className='py-2'>
@@ -232,26 +232,33 @@ function PlaceOrder() {
   </div>
 
   {/* Payment Buttons */}
-  <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 px-2">
-
-    {/* Razorpay Button */}
+  <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
     <button 
       onClick={() => setMethod('razorpay')} 
-      className={`w-full sm:w-[45%] h-[50px] bg-white rounded-md flex items-center justify-center ${method === 'razorpay' ? 'border-4 border-blue-900' : 'border border-gray-300'}`}
+      className={`w-full sm:w-1/2 h-[55px] bg-white rounded-md flex items-center justify-center ${method === 'razorpay' ? 'border-4 border-blue-900' : 'border border-gray-300'}`}
     >
       <img 
         src={razorpay} 
-        className="max-h-[30px] w-auto object-contain" 
+        className="h-[35px] w-auto object-contain" 
         alt="Razorpay" 
       />
     </button>
 
-    {/* COD Button */}
     <button 
       onClick={() => setMethod('cod')} 
-      className={`w-full sm:w-[45%] h-[50px] bg-gradient-to-l from-[#95b3f8] to-white rounded-md font-bold flex items-center justify-center text-sm text-[#332f6f] ${method === 'cod' ? 'border-4 border-blue-900' : 'border border-gray-300'}`}
+      className={`w-full sm:w-1/2 h-[55px] bg-gradient-to-l from-[#95b3f8] to-white rounded-md font-bold flex items-center justify-center text-sm sm:text-base text-[#332f6f] ${method === 'cod' ? 'border-4 border-blue-900' : 'border border-gray-300'}`}
     >
       CASH ON DELIVERY
+    </button>
+  </div>
+
+  {/* Place Order Button */}
+  <div className='w-full flex justify-center mt-6'>
+    <button 
+      type='submit' 
+      className='w-full sm:w-auto text-[16px] sm:text-[18px] bg-[#3bcee848] py-3 px-8 rounded-2xl text-white border border-gray-500 hover:bg-[#3bcee880]'
+    >
+      PLACE ORDER
     </button>
   </div>
 </div>
