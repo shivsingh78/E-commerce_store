@@ -233,25 +233,35 @@ function PlaceOrder() {
 
   {/* Payment Buttons */}
   <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
-    {/* Razorpay Button */}
+   {/* Razorpay Button */}
 <button 
   onClick={() => setMethod('razorpay')} 
-  className={`w-full sm:w-1/2 h-[55px] bg-white rounded-md flex items-center justify-center 
-              ${method === 'razorpay' ? 'border-4 border-blue-900' : 'border border-gray-300'}`}
+  className={`w-full sm:w-1/2 h-[55px] rounded-md flex items-center justify-center gap-3 
+              ${method === 'razorpay' 
+                ? 'border-4 border-blue-900 bg-white shadow-md' 
+                : 'border border-gray-300 bg-white'}`}
 >
   <img 
     src={razorpay} 
-    alt="Razorpay" 
-    className="h-[28px] sm:h-[35px] w-auto object-contain" 
+    alt="Razorpay Logo" 
+    className="h-[24px] sm:h-[28px] w-auto object-contain" 
   />
+  <span className="text-base sm:text-lg font-semibold text-gray-800">Pay with Razorpay</span>
 </button>
 
-    <button 
-      onClick={() => setMethod('cod')} 
-      className={`w-full sm:w-1/2 h-[55px] bg-gradient-to-l from-[#95b3f8] to-white rounded-md font-bold flex items-center justify-center text-sm sm:text-base text-[#332f6f] ${method === 'cod' ? 'border-4 border-blue-900' : 'border border-gray-300'}`}
-    >
-      CASH ON DELIVERY
-    </button>
+
+    {/* COD Button */}
+<button 
+  onClick={() => setMethod('cod')} 
+  className={`w-full sm:w-1/2 h-[55px] rounded-md flex items-center justify-center 
+              font-semibold text-base sm:text-lg text-[#332f6f] 
+              ${method === 'cod' 
+                ? 'border-4 border-blue-900 bg-gradient-to-l from-[#95b3f8] to-white shadow-md' 
+                : 'border border-gray-300 bg-gradient-to-l from-[#95b3f8] to-white'}`}
+>
+  Cash on Delivery
+</button>
+
   </div>
 
   {/* Place Order Button */}
