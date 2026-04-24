@@ -26,13 +26,13 @@ function Nav() {
     try {
       const result = await axios.get(serverUrl + "/api/auth/logout" , {withCredentials:true})
       console.log(result.data);
-      getCurrentUser()
+     
       toast.success("User Loged Out Successfully")
      
       
     } catch (error) {
       console.log(error);
-      toast.success("User Loged Our Error")
+      toast.success("User Loged Out Error")
       
       
     }
