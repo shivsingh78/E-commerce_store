@@ -15,12 +15,16 @@ let app=express()
 
 
 //middleware
-app.use(express.json())
-app.use(cookieParser())
+
 app.use(cors({
-     origin:["https://e-store-frontend-4cvi.onrender.com" , "https://e-store-admin-81ui.onrender.com",],
-     credentials:true
-}))
+  origin:  ["http://localhost:5173",
+  "https://e-store-frontend-4cvi.onrender.com",
+  "https://e-store-admin-81ui.onrender.com"],
+  credentials: true
+}));
+
+app.use(express.json());
+app.use(cookieParser());
 
 //routes
 app.use("/api/auth",authRoutes)
