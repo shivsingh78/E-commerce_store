@@ -212,7 +212,7 @@ function PlaceOrder() {
         <div className='w-full flex justify-center'>
           <button 
             type='submit' 
-            className='w-full sm:w-auto text-[18px] bg-[#3bcee848] py-3 px-8 rounded-2xl text-white border border-gray-500 hover:bg-[#3bcee880]'
+            className='w-full sm:w-auto text-[18px] bg-[#3bcee848] py-3 px-8 rounded-2xl text-white border border-gray-500 hover:bg-[#3bcee880] cursor-pointer'
           >
             PLACE ORDER
           </button>
@@ -265,14 +265,7 @@ function PlaceOrder() {
   </div>
 
   {/* Place Order Button */}
-  <div className='w-full flex justify-center mt-6'>
-    <button 
-      type='submit' 
-      className='w-full sm:w-auto text-[16px] sm:text-[18px] bg-[#3bcee848] py-3 px-8 rounded-2xl text-white border border-gray-500 hover:bg-[#3bcee880]'
-    >
-      PLACE ORDER
-    </button>
-  </div>
+  
 </div>
 
   </div>
